@@ -26,72 +26,124 @@ for idx, record in enumerate(all_record):
     print(f"{idx}:{record}")
 
 
-# Second_Lab
+#Second day class
 
 import pymongo
 
-dbconn = pymongo.MongoClient("mongodb://localhost:27017/")
+#connect with the mongodb
+dbConn = pymongo.MongoClient("mongodb://localhost:27017/")
 
-dbname = 'ineuron'
+dbname='ineuron'
 
-db=dbconn[dbname]
+db=dbConn[dbname]
 
-
-# to find all the database name.
-dbconn.list_database_names()
-
-collection_name ='mongo_demo'
+collection_name='mongo_demo'
 
 collection=db[collection_name]
 
-collection
-
 my_row = {'Serial No': '9998',
-          'GRE Score':'337',
-          'TOEFL Score': '118',
-          'University Rating':'4',
-          'SOP':'4.5',
-          'LOR':'4.5',
-          'CGPA':'9.65',
-          'Research':'1',
-          'Chance of Admit': '0.92'
+ 'GRE Score': '337',
+ 'TOEFL Score': '118',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.65',
+ 'Research': '1',
+ 'Chance of Admit': '0.92'}
 
-}
 
 col=collection.insert_one(my_row)
 
-col.inserted_id
+my_rows=[
+    {'Serial No': '9998',
+ 'GRE Score': '337',
+ 'TOEFL Score': '118',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.65',
+ 'Research': '1',
+ 'Chance of Admit': '0.92'},
 
-res =collection.find()
+ {'Serial No': '1000',
+ 'GRE Score': '310',
+ 'TOEFL Score': '100',
+ 'University Rating': '2',
+ 'SOP': '4.2',
+ 'LOR': '3.5',
+ 'CGPA': '9.00',
+ 'Research': '0',
+ 'Chance of Admit': '0.70'}] 
 
-# Extract Data From DB
+collection.insert_many(my_rows)
+
+res=collection.find()
+
 for i in res:
     print(i)
 
-#List of the Doc
-my_rows=[{'Serial No': '9999',
-          'GRE Score':'337',
-          'TOEFL Score': '118',
-          'University Rating':'4',
-          'SOP':'4.5',
-          'LOR':'4.5',
-          'CGPA':'9.66',
-          'Research':'1',
-          'Chance of Admit': '0.92'
+#for getting interseted if
+col.inserted_id
+col.inserted_id
 
-},{'Serial No': '10000',
-          'GRE Score':'337',
-          'TOEFL Score': '118',
-          'University Rating':'4',
-          'SOP':'4.5',
-          'LOR':'4.5',
-          'CGPA':'9.67',
-          'Research':'1',
-          'Chance of Admit': '0.92'
+#for getting limited record
+result_total=collection.find({}).limit(2)
 
-}]  
+# without curly braces you won't be able to get single record(record[1] it won't work here)
+#you will have to add curly baces.
+result=collection.find()
+record=collection.find()
 
-# insert many row data using list
-res =collection.insert_many(my_rows)
+result=collection.find({},{'GRE Score','TOEFL Score'})
+my_rows = [
+{'Serial No': '9997',
+ 'GRE Score': '337',
+ 'TOEFL Score': '118',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.65',
+ 'Research': '1',
+ 'Chance of Admit': '0.92'},
+  {
+    'Serial No': '9996',
+ 'GRE Score': '336',
+ 'TOEFL Score': '118',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.6',
+ 'Research': '0',
+ 'Chance of Admit': '0.92'},
+  {
+    'Serial No': '9995',
+ 'GRE Score': '337',
+ 'TOEFL Score': '118',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.5',
+ 'Research': '1',
+ 'Chance of Admit': '0.92'},
+  {
+    'Serial No': '9994',
+ 'GRE Score': '334',
+ 'TOEFL Score': '119',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.4',
+ 'Research': '1',
+ 'Chance of Admit': '0.92'},
+  {
+    'Serial No': '9993',
+ 'GRE Score': '337',
+ 'TOEFL Score': '118',
+ 'University Rating': '4',
+ 'SOP': '4.5',
+ 'LOR': '4.5',
+ 'CGPA': '9.65',
+ 'Research': '1',
+ 'Chance of Admit': '0.92'}
 
-res =collection.find # Fetch Data From DB
+]

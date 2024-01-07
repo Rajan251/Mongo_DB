@@ -39,3 +39,59 @@ db=dbconn[dbname]
 
 # to find all the database name.
 dbconn.list_database_names()
+
+collection_name ='mongo_demo'
+
+collection=db[collection_name]
+
+collection
+
+my_row = {'Serial No': '9998',
+          'GRE Score':'337',
+          'TOEFL Score': '118',
+          'University Rating':'4',
+          'SOP':'4.5',
+          'LOR':'4.5',
+          'CGPA':'9.65',
+          'Research':'1',
+          'Chance of Admit': '0.92'
+
+}
+
+col=collection.insert_one(my_row)
+
+col.inserted_id
+
+res =collection.find()
+
+# Extract Data From DB
+for i in res:
+    print(i)
+
+#List of the Doc
+my_rows=[{'Serial No': '9999',
+          'GRE Score':'337',
+          'TOEFL Score': '118',
+          'University Rating':'4',
+          'SOP':'4.5',
+          'LOR':'4.5',
+          'CGPA':'9.66',
+          'Research':'1',
+          'Chance of Admit': '0.92'
+
+},{'Serial No': '10000',
+          'GRE Score':'337',
+          'TOEFL Score': '118',
+          'University Rating':'4',
+          'SOP':'4.5',
+          'LOR':'4.5',
+          'CGPA':'9.67',
+          'Research':'1',
+          'Chance of Admit': '0.92'
+
+}]  
+
+# insert many row data using list
+res =collection.insert_many(my_rows)
+
+res =collection.find # Fetch Data From DB
